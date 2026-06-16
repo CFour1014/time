@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html language="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的數位時鐘</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .clock-container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 3rem 4rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        .date {
+            font-size: 1.5rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            color: #00adb5;
+        }
+
+        .time {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-shadow: 0 0 20px rgba(0, 173, 181, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="clock-container">
+        <div class="date" id="date-display">YYYY/MM/DD</div>
+        <div class="time" id="time-display">00:00:00</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            
+            // 取得年月日
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const date = String(now.getDate()).padStart(2, '0');
+            const dayNames = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const day = dayNames[now.getDay()];
+            
+            // 取得時分秒
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // 更新畫面
+            document.getElementById('date-display').textContent = `${year}年${month}月${date}日 ${day}`;
+            document.getElementById('time-display').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+
+        // 每秒執行一次
+        setInterval(updateClock, 1000);
+        
+        // 初始化先執行一次避免一秒的空白
+        updateClock();
+    </script>
+</body>
+</html>
